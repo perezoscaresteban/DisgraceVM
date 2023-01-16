@@ -9,32 +9,6 @@ using static UnityEngine.Tilemaps.Tilemap;
 public class ControlScript : MonoBehaviour
 {
 
-    /* PRIMERA IMPLEMENTACION DE MECANICA
-    nombre_apellido_desafio2
-
-    Se debera hacer un Script que contenga las variables: 
-    * vida
-    * velocidad
-    * direccion
-
-    Ademas, debera contener un metodo que:
-    * controle el movimiento 
-    * que cure al jugador (suba el valor de la vida)
-    * que danie al jugador (baje el valor de la vida) 
-    No es necesario que esten implementados (es decir, que hagan algo al darle play) pero si es necesario
-    que se encuentren bien armados.
-    Pueden valerse de los metodos Start y Update para probar si sus metodos funcionan
-    */
-
-
-    /*
-            CONTROLS
-            W forward
-            S backward
-            A left
-            D right
-            SpaceBar increase speed
-     */
 
     [SerializeField] private string m_name;
     [SerializeField] private float life;
@@ -97,10 +71,6 @@ public class ControlScript : MonoBehaviour
     }
 
 
-    /*De momento solo entendi como usar imputs de teclas, y no los axis vertical u horizontal,
-     asi que mi cubo se desplaza con comandos ASWD.
-     Tiene una velocidad base y una mas rapida, cuando se presiona la barra espaciadora va a 
-     la mas rapida y cuando se suelta la misma vuelve a velocidad normal*/
     private void Acelerate()
     {
 
@@ -136,6 +106,9 @@ public class ControlScript : MonoBehaviour
         }
     }
 
+    /*Por alguna razon cuando instancia la Bullet la instancia con valores cambiados de "Scale"
+    Y en lugar de esferas salen ovalos. Pero si cambo los valores "Scale" del prefab si salen esferas
+    pero el prefab me queda un ovalo */
     private void Shot()
     {
         if (Input.GetKeyDown(KeyCode.J))
