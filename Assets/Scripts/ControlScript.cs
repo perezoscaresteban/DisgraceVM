@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.Tilemaps.Tilemap;
 
-public class CubeScript : MonoBehaviour
+public class ControlScript : MonoBehaviour
 {
 
     /* PRIMERA IMPLEMENTACION DE MECANICA
@@ -43,6 +43,11 @@ public class CubeScript : MonoBehaviour
     [SerializeField] private float turboSpeed;
     private float speed;
 
+    public GameObject bullet;
+    public Transform bulletStartPointC;
+    public Transform bulletStartPointL;
+    public Transform bulletStartPointR;
+
 
     private void Awake()
     {
@@ -57,8 +62,9 @@ public class CubeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Acelerate();
+        //Acelerate();
         MoveDirection();
+        Shot();
 
     }
 
@@ -114,21 +120,35 @@ public class CubeScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(0, 0, -1) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(0, 0, -1) * moveSpeed * Time.deltaTime);
         }
     }
 
-
+    private void Shot()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Instantiate(bullet, bulletStartPointL);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Instantiate(bullet, bulletStartPointC);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Instantiate(bullet, bulletStartPointR);
+        }
+    }
 }
