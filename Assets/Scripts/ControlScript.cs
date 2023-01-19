@@ -10,17 +10,41 @@ public class ControlScript : MonoBehaviour
 {
 
 
+    /*IMPUTS
+    Chatacter Move
+    W -> Forward
+    A -> Left
+    S -> Backward
+    D -> Right
+
+    LeftControl -> Acelerate Movement (by inspector)
+
+    Shots 
+    J -> 1 Bullet 
+    K -> 2 Bullets
+    L -> 3 Bullets
+
+    SpaceBar -> Duplicate the bullet size
+
+    (AutoShoot by inspector)
+    (Killbullet by inspector)
+    */
+
     [SerializeField] private string m_name;
     [SerializeField] private float life;
     [SerializeField] private Vector3 direction;
     [SerializeField] private float normalSpeed;
     [SerializeField] private float turboSpeed;
     private float speed;
+    [SerializeField] private float timerAutoShot;
+    private float timerAutoShot2;
 
     public GameObject bullet;
     public Transform bulletStartPointC;
     public Transform bulletStartPointL;
     public Transform bulletStartPointR;
+    public Transform bulletStartPointAutoShot;
+
 
 
     private void Awake()
@@ -36,9 +60,10 @@ public class ControlScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Acelerate();
+        Acelerate();
         MoveDirection();
         Shot();
+        AutoShot();
 
     }
 
@@ -74,11 +99,11 @@ public class ControlScript : MonoBehaviour
     private void Acelerate()
     {
 
-        if (Input.GetKey(KeyCode.Space)) 
+        if (Input.GetKey(KeyCode.LeftControl)) 
         {
             ChangeSpeed(turboSpeed);
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             ChangeSpeed(normalSpeed);
         }
@@ -118,10 +143,28 @@ public class ControlScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             Instantiate(bullet, bulletStartPointC);
+            Instantiate(bullet, bulletStartPointL);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
+            Instantiate(bullet, bulletStartPointC);
+            Instantiate(bullet, bulletStartPointL);
             Instantiate(bullet, bulletStartPointR);
         }
     }
+
+    private void AutoShot() 
+    {
+        if (timerAutoShot2 <= 0)
+        {
+            Instantiate(bullet, bulletStartPointAutoShot);
+            timerAutoShot2 = timerAutoShot;
+        }
+        else 
+        {
+            timerAutoShot2 -= Time.deltaTime; 
+        }
+        
+    }
+
 }
