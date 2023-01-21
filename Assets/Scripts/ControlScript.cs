@@ -39,13 +39,19 @@ public class ControlScript : MonoBehaviour
     [SerializeField] private float timerAutoShot;
     private float timerAutoShot2;
 
-    public GameObject bullet;
-    public Transform bulletStartPointC;
-    public Transform bulletStartPointL;
-    public Transform bulletStartPointR;
-    public Transform bulletStartPointAutoShot;
+    public GameObject knife;
+    public Transform shotOrigin1;
+    public Transform shotOrigin2;
+    public Transform shotOrigin3;
 
     public GameObject temporizador;
+
+
+    //
+    public float sensX;
+    public Transform orientation;
+    public float yRotation;
+    //
 
     private void Awake()
     {
@@ -55,12 +61,14 @@ public class ControlScript : MonoBehaviour
     void Start()
     {
         Instantiate(temporizador);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
         Acelerate();
+        MoveVision();
         MoveDirection();
         Shot();
         AutoShot();
@@ -116,19 +124,19 @@ public class ControlScript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(0, 0, -1) * moveSpeed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(new Vector3(0, 0, -1) * moveSpeed * Time.deltaTime);
+            transform.Translate(new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime);
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Translate(new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime);
         }
     }
 
@@ -139,18 +147,18 @@ public class ControlScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.J))
         {
-            Instantiate(bullet, bulletStartPointL);
+            Instantiate(knife, shotOrigin1);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Instantiate(bullet, bulletStartPointC);
-            Instantiate(bullet, bulletStartPointL);
+            Instantiate(knife, shotOrigin2);
+            Instantiate(knife, shotOrigin3);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            Instantiate(bullet, bulletStartPointC);
-            Instantiate(bullet, bulletStartPointL);
-            Instantiate(bullet, bulletStartPointR);
+            Instantiate(knife, shotOrigin1);
+            Instantiate(knife, shotOrigin2);
+            Instantiate(knife, shotOrigin3);
         }
     }
 
@@ -158,7 +166,7 @@ public class ControlScript : MonoBehaviour
     {
         if (timerAutoShot2 <= 0)
         {
-            Instantiate(bullet, bulletStartPointAutoShot);
+            Instantiate(knife, shotOrigin1);
             timerAutoShot2 = timerAutoShot;
         }
         else 
@@ -166,6 +174,16 @@ public class ControlScript : MonoBehaviour
             timerAutoShot2 -= Time.deltaTime; 
         }
         
+    }
+
+    void MoveVision()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
+
+        yRotation += mouseX;
+
+        transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
 }
