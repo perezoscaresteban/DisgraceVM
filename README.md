@@ -18,7 +18,7 @@ Este es el proyecto principal de Oscar Esteban Perez de Coderhouse comision 3299
 
     SpaceBar -> Duplicate the bullet size
 	
-	C -> Change Camera
+	C -> Change betwens Cameras
 
     (AutoShoot by inspector)
     (Killbullet by inspector)
