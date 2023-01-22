@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1366
     height: 685
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 67555
+  controlID: 219
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 67576
+  controlID: 211
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -493,7 +493,7 @@ MonoBehaviour:
       containerId: overlay-container--right
       floating: 0
       collapsed: 0
-      displayed: 0
+      displayed: 1
       snapOffset: {x: 0, y: 0}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
@@ -631,9 +631,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.3460824, y: 2.2089036, z: 5.5621614}
+    m_Target: {x: 0.8803212, y: 1.8350205, z: 3.941909}
     speed: 2
-    m_Value: {x: 1.3460824, y: 2.2089036, z: 5.5621614}
+    m_Value: {x: 0.8803212, y: 1.8350205, z: 3.941909}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -680,9 +680,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.008593051, y: 0.29579762, z: 0.002675227, w: -0.9552247}
+    m_Target: {x: -0.020617535, y: -0.8597826, z: 0.034847338, w: -0.509083}
     speed: 2
-    m_Value: {x: 0.008593051, y: 0.29579762, z: 0.002675227, w: -0.9552247}
+    m_Value: {x: -0.021543168, y: -0.8574166, z: 0.03603985, w: -0.5129072}
   m_Size:
     m_Target: 1.6527636
     speed: 2
@@ -743,9 +743,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 2a88f1ff429bf1ff5a9bf1ff5e9bf1ff30a1f7ffce02f8ff6823f8ff16b6f8ff9cb9f8ff0cc1f8ff68b9fbffc84afeffa675feff461affff1eb9ffff86bcffffceb70000e2b700002ab80000
+      m_SelectedIDs: aa670000
+      m_LastClickedID: 26538
+      m_ExpandedIDs: 30fbffff5e670000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -811,22 +811,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/3DModels/Outsider/Materials
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/3DModels/Outsider/Materials
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\perez\Documents\Unity Projects\DisgraceVM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 42c00000
-    m_LastClickedID: 49218
-    m_ExpandedIDs: 000000001eb7000004be00002ebe000000ca9a3b
+    m_SelectedIDs: 106a0000
+    m_LastClickedID: 27152
+    m_ExpandedIDs: 00000000106a0000126a0000146a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -854,7 +854,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000001eb7000004be00002ebe000000ca9a3b
+    m_ExpandedIDs: 00000000106a0000126a0000146a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -906,7 +906,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 105}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 141
