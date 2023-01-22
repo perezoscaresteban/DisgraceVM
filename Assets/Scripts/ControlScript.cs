@@ -10,7 +10,7 @@ public class ControlScript : MonoBehaviour
 {
 
 
-    /*IMPUTS
+    /*INPUTS
     Chatacter Move
     W -> Forward
     A -> Left
