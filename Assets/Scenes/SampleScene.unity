@@ -310,9 +310,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: 
   life: 0
-  direction: {x: 0, y: 0, z: 0.1}
   normalSpeed: 5
   turboSpeed: 7
+  rotationSpeed: 90
   timerAutoShot: 3
   knife: {fileID: 3996149957193911569, guid: a98e3b37f0862774e8ba72ece184864c, type: 3}
   shotOrigin1: {fileID: 801482900}
@@ -394,7 +394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 216638794}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.72, y: 1.866, z: 4.14}
+  m_LocalPosition: {x: -0.72, y: 1.45, z: 4.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
