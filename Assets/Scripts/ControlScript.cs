@@ -32,9 +32,9 @@ public class ControlScript : MonoBehaviour
 
     [SerializeField] private string m_name;
     [SerializeField] private float life;
-    [SerializeField] private Vector3 direction;
     [SerializeField] private float normalSpeed;
     [SerializeField] private float turboSpeed;
+    [SerializeField] private float rotationSpeed;
     private float speed;
     [SerializeField] private float timerAutoShot;
     private float timerAutoShot2;
@@ -68,8 +68,8 @@ public class ControlScript : MonoBehaviour
     void Update()
     {
         Acelerate();
-        MoveVision();
-        MoveDirection();
+        RotateCharacter(GetRotationAmount());
+        Move(GetMoveVector());
         Shot();
         AutoShot();
         
@@ -93,18 +93,6 @@ public class ControlScript : MonoBehaviour
         speed = newSpeed;
     }
 
-    /*Este metodo no cambia realmente la posicion sino la variable "direccion".
-     Ya que no cambia el Transform del objeto.
-     Debajo implemente MoveDirection() para mover el objeto y este si usa dentro a 
-     transform.Translate e Input.GetKey(KeyCode...
-     Pero deje esto asi ya que el ejercicio decia:
-     "Se debera hacer un Script que contenga las variables ... direccion" */
-    private void ChangeDirection(float x,float y,float z)
-    {
-        direction = new Vector3(x, y, z);
-    }
-
-
     private void Acelerate()
     {
 
@@ -118,31 +106,29 @@ public class ControlScript : MonoBehaviour
         }
     }
 
-    private void MoveDirection()
+    private void Move(Vector3 moveDir)
     {
-        float moveSpeed = speed;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(new Vector3(0, 0, 1) * moveSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(new Vector3(0, 0, -1) * moveSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(new Vector3(1, 0, 0) * moveSpeed * Time.deltaTime);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(new Vector3(-1, 0, 0) * moveSpeed * Time.deltaTime);
-        }
+        transform.position += (moveDir.x * transform.right + moveDir.z * transform.forward) * (speed * Time.deltaTime);
     }
 
-    /*Por alguna razon cuando instancia la Bullet la instancia con valores cambiados de "Scale"
-    Y en lugar de esferas salen ovalos. Pero si cambo los valores "Scale" del prefab si salen esferas
-    pero el prefab me queda un ovalo */
+    private void RotateCharacter(float rotateAmount)
+    {
+        transform.Rotate(Vector3.up, rotateAmount * Time.deltaTime * rotationSpeed, Space.Self);
+    }
+
+    private float GetRotationAmount() 
+    {
+        return Input.GetAxis("Mouse X");
+    }
+
+    private Vector3 GetMoveVector()
+    {
+        var l_horizontal = Input.GetAxis("Horizontal");
+        var l_vertical = Input.GetAxis("Vertical");
+
+        return new Vector3(l_horizontal, 0, l_vertical).normalized;
+    }
+
     private void Shot()
     {
         if (Input.GetKeyDown(KeyCode.J))
@@ -174,16 +160,6 @@ public class ControlScript : MonoBehaviour
             timerAutoShot2 -= Time.deltaTime; 
         }
         
-    }
-
-    void MoveVision()
-    {
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-
-        yRotation += mouseX;
-
-        transform.rotation = Quaternion.Euler(0, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
 }
