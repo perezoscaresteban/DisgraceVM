@@ -1,64 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class Temporizador : MonoBehaviour
 {
+    private float timeI;
 
-    /*
-     INPUTS TIMER
-     T -> On / Off
-     Y -> Reset
-     */
-    [SerializeField] private float timerI;
-    private float timer;
-    private bool active;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        timer = timerI;
-    }
-
-    // Update is called once per frame
     private void Update()
     {
-        OnOff();
         UpdateTimer();
-        ResetTimer();
-        Debug.Log(timer);
-    }
-
-    private void OnOff()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            if (active) 
-            { 
-                active = false;
-            }
-            else
-            {
-                active = true;
-            }
-        }
     }
 
     private void UpdateTimer()
     {
-        if (active && timer >= 0)
-        {
-            timer -= Time.deltaTime;
-        }
+        timeI += Time.deltaTime;
     }
 
-    private void ResetTimer() 
+    public float timeAccount() 
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            timer = timerI;
-            active = false;
-        }
+        return timeI;
     }
-
 }

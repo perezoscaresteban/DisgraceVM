@@ -55,12 +55,10 @@ public class OutsiderController : MonoBehaviour
 
     private void ExecuteIdle()
     {
-        Debug.Log("Idle State");
     }
 
     private void ExecutePursuit()
     {
-        Debug.Log("Pursuit State");
         var vectorToPJ = pj.position - transform.position;
         var distance = vectorToPJ.magnitude;
         if (distance < pursuitDistance)
@@ -73,7 +71,6 @@ public class OutsiderController : MonoBehaviour
 
     private void ExecuteRunAway()
     {
-        Debug.Log("Pursuit RunaWay");
         var vectorToPJ = transform.position - pj.position;
         var distance = vectorToPJ.magnitude;
         if (distance < pursuitDistance)
@@ -87,7 +84,6 @@ public class OutsiderController : MonoBehaviour
 
     private void ExecuteSeeker()
     {
-        Debug.Log("Pursuit Seeker");
         Quaternion newRotation = Quaternion.LookRotation(pj.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation,newRotation, Time.deltaTime * rotationSpeed);
     }

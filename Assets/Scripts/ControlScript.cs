@@ -24,68 +24,69 @@ public class ControlScript : MonoBehaviour
     K -> 2 Bullets
     L -> 3 Bullets
 
-    SpaceBar -> Duplicate the bullet size
-
-    (AutoShoot by inspector)
-    (Killbullet by inspector)
     */
 
     [SerializeField] private string m_name;
-    [SerializeField] private float life;
+    [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
     [SerializeField] private float normalSpeed;
     [SerializeField] private float turboSpeed;
     [SerializeField] private float rotationSpeed;
     private float speed;
-    [SerializeField] private float timerAutoShot;
-    private float timerAutoShot2;
+    private Vector3 originalSize;
 
     public GameObject knife;
     public Transform shotOrigin1;
     public Transform shotOrigin2;
     public Transform shotOrigin3;
 
-    public GameObject temporizador;
-
-
-    //
-    public float sensX;
-    public Transform orientation;
-    public float yRotation;
-    //
-
-    private void Awake()
-    {
-        speed = normalSpeed;
-    }
-    // Start is called before the first frame update
     void Start()
     {
-        Instantiate(temporizador);
+        speed = normalSpeed;
+        originalSize = new Vector3(transform.localScale.x,
+                                   transform.localScale.y,
+                                   transform.localScale.z);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Acelerate();
         RotateCharacter(GetRotationAmount());
         Move(GetMoveVector());
         Shot();
-        AutoShot();
-        
 
     }
 
     //Desafio de Debug.Log de una variable cuando cambia su valor
-    private void HealLife(float n)
+    private void ReciveHealth(float p_health)
     {
-        Debug.Log("Increase Life from " + life + " to " + life+n);
-        life += n;
+        var prevHealth = health;
+        if (prevHealth + p_health <= maxHealth)
+        {
+            Debug.Log("Increase Health from " + prevHealth + " to " + prevHealth + p_health);
+            health += p_health;
+        }
+        else
+        {
+            health = maxHealth;
+        }
+
     }
 
-    private void DamageLife(float n)
+    private void DamageLife(float p_health)
     {
-        life -= n;
+        var prevHealth = health;
+        if (prevHealth - p_health <= maxHealth)
+        {
+            Debug.Log("PJ DIED");
+            health = 0;
+        }
+        else
+        {
+            health = -p_health;
+            Debug.Log("Decrease Health from " + prevHealth + " to " + health);
+        }
     }
 
     private void ChangeSpeed(float newSpeed)
@@ -96,7 +97,7 @@ public class ControlScript : MonoBehaviour
     private void Acelerate()
     {
 
-        if (Input.GetKey(KeyCode.LeftControl)) 
+        if (Input.GetKey(KeyCode.LeftControl))
         {
             ChangeSpeed(turboSpeed);
         }
@@ -116,7 +117,7 @@ public class ControlScript : MonoBehaviour
         transform.Rotate(Vector3.up, rotateAmount * Time.deltaTime * rotationSpeed, Space.Self);
     }
 
-    private float GetRotationAmount() 
+    private float GetRotationAmount()
     {
         return Input.GetAxis("Mouse X");
     }
@@ -148,18 +149,17 @@ public class ControlScript : MonoBehaviour
         }
     }
 
-    private void AutoShot() 
-    {
-        if (timerAutoShot2 <= 0)
-        {
-            Instantiate(knife, shotOrigin1);
-            timerAutoShot2 = timerAutoShot;
-        }
-        else 
-        {
-            timerAutoShot2 -= Time.deltaTime; 
-        }
-        
+    public void ReSize(Vector3 newVector3) {
+        transform.localScale = newVector3; 
     }
 
+    public bool IsNormalSize() 
+    {
+        return transform.localScale == originalSize;
+    }
+
+    public Vector3 OriginalZise()
+    {
+        return originalSize;
+    }
 }
