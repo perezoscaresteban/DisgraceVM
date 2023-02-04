@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 30466
+  controlID: 2026
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 30443
+  controlID: 2005
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -632,9 +632,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 12.448391, y: 6.2006207, z: 10.69309}
+    m_Target: {x: 36.52172, y: 7.766223, z: 18.15171}
     speed: 2
-    m_Value: {x: 12.448391, y: 6.2006207, z: 10.69309}
+    m_Value: {x: 36.52172, y: 7.766223, z: 18.15171}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -681,13 +681,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.05312308, y: -0.83912337, z: -0.08335564, w: -0.53500116}
+    m_Target: {x: 0.05281725, y: -0.54725856, z: -0.034283333, w: -0.83476543}
     speed: 2
-    m_Value: {x: -0.05312308, y: 0.83912337, z: 0.08335565, w: 0.53500116}
+    m_Value: {x: 0.05170781, y: -0.5434682, z: -0.03322487, w: -0.8371766}
   m_Size:
-    m_Target: 7.5295935
+    m_Target: 14.431708
     speed: 2
-    m_Value: 7.5295935
+    m_Value: 14.431708
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -773,9 +773,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: aea50000
+      m_SelectedIDs: 12870000
       m_LastClickedID: 0
-      m_ExpandedIDs: aa13fcffea40fdff1271fdff9ca4fdff08a5fdffccbafdffdee8fdffaefefdffd2e5feff6828ffff16fbffff
+      m_ExpandedIDs: 92e4ffff16fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -791,7 +791,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 7}
+        m_ClientGUIView: {fileID: 9}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -841,22 +841,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/3DModels/Lamp/textures
+    - Assets/3DModels/Mark
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/3DModels/Lamp/textures
+  - Assets/3DModels/Mark
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\perez\Documents\Unity Projects\DisgraceVM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: bea50000
-    m_LastClickedID: 42430
-    m_ExpandedIDs: 00000000246c0000ae6d0000b06d0000368400005a8400009ea20000cca200009aa50000b8a50000
+    m_SelectedIDs: 08870000
+    m_LastClickedID: 34568
+    m_ExpandedIDs: 00000000a66a0000a86a0000aa6a0000ac6a0000ae6a0000b06a0000b26a0000b46a0000b66a0000b86a0000ba6a0000627d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -884,7 +884,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000246c0000ae6d0000b06d0000368400005a8400009ea20000cca200009aa50000b8a50000
+    m_ExpandedIDs: 00000000a66a0000a86a0000aa6a0000ac6a0000ae6a0000b06a0000b26a0000b46a0000b66a0000b86a0000ba6a0000627d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -939,7 +939,7 @@ MonoBehaviour:
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 141
+  m_DirectoriesAreaWidth: 146
 --- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
