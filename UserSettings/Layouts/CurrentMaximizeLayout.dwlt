@@ -26,7 +26,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 35729
+  controlID: 44345
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 35730
+  controlID: 44346
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -433,9 +433,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 28.622496, y: 6.767706, z: 16.246082}
+    m_Target: {x: 6.0085077, y: -0.8606739, z: 31.190567}
     speed: 2
-    m_Value: {x: 28.622496, y: 6.767706, z: 16.246082}
+    m_Value: {x: 6.0085077, y: -0.8606739, z: 31.190567}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -482,9 +482,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.0528804, y: 0.55329174, z: 0.034205075, w: 0.8309187}
+    m_Target: {x: 0.08830431, y: -0.058888026, z: 0.004405223, w: 0.99462175}
     speed: 2
-    m_Value: {x: -0.05286655, y: 0.5531468, z: 0.034196116, w: 0.83070105}
+    m_Value: {x: 0.08827972, y: -0.058871623, z: 0.004403996, w: 0.9943447}
   m_Size:
     m_Target: 12.124356
     speed: 2
@@ -587,8 +587,8 @@ MonoBehaviour:
     y: 0
     width: 205
     height: 635
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 9}
   m_Panes:
   - {fileID: 9}
@@ -628,7 +628,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6c89f9ffcab0f9ffeee6faff9079fdffa0e0feff0efbffff12fbffff14fbffff34690000466900008a690000
+      m_ExpandedIDs: 6c89f9ffcab0f9ff9079fdffa0e0feff0efbffff14fbffff3469000046690000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -720,21 +720,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/3DModels/Ashray
+    - Assets/3DModels/Mana Potion
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/3DModels/Ashray
+  - Assets/3DModels/Mana Potion
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\perez\Documents\Unity Projects\DisgraceVM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 34710000
-    m_LastClickedID: 28980
+    m_SelectedIDs: 06710000
+    m_LastClickedID: 28934
     m_ExpandedIDs: 00000000b86a0000ba6a0000be6a0000c06a0000c26a0000c46a0000c86a0000ce6a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -788,9 +788,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 4270fbff
-    m_LastClickedInstanceID: -298942
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: a259faff
+    m_LastClickedInstanceID: -370270
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: aca50000000000000471000032710000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -815,7 +815,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 477}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 146
@@ -880,7 +880,7 @@ MonoBehaviour:
     m_CachedPref: -160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -298942
+  m_LastInspectedObjectInstanceID: -370270
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
