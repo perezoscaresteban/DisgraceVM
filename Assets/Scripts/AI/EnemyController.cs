@@ -149,8 +149,6 @@ public class EnemyController : MonoBehaviour
     {
         enemyAnimator.SetFloat("Speed", speed);
         enemyAnimator.SetBool("Attack", AbleToAttack()); 
-
-        Debug.Log(AbleToAttack());
         SetCurrentState();
     }
 

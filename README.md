@@ -8,18 +8,12 @@ Este es el proyecto principal de Oscar Esteban Perez de Coderhouse comision 3299
     A -> Left
     S -> Backward
     D -> Right
-
-    LeftControl -> Acelerate Movement (by inspector)
-
-    Shots 
-    J -> 1 Bullet 
-    K -> 2 Bullets
-    L -> 3 Bullets
-
-    SpaceBar -> Duplicate the bullet size
 	
-	C -> Change betwens Cameras
+	Camera -> Mouse
 
-    (AutoShoot by inspector)
-    (Killbullet by inspector)
-    */
+    LeftShift -> Sprint
+
+    SpaceBar -> Jump
+	
+	LeftCtrl -> Crouch
+	
