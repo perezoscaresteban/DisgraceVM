@@ -1,49 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 
 public class PlayerMovement : MonoBehaviour
 {
+    float playerHeight = 2f;
+
+    [SerializeField] Transform orientation;
+
     [Header("Movement")]
-    private float speed;
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float sprintSpeed;
-    [SerializeField] private float groundDrag;
+    [SerializeField] float moveSpeed = 6f;
+    [SerializeField] float airMultiplier = 0.4f;
+    float movementMultiplier = 10f;
+
+    [Header("Sprinting")]
+    [SerializeField] float walkSpeed = 4f;
+    [SerializeField] float sprintSpeed = 6f;
+    [SerializeField] float acceleration = 10f;
 
     [Header("Jumping")]
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float jumpCooldown;
-    [SerializeField] private float airMultiplier;
-    private bool readyToJump = true;
+    public float jumpForce = 5f;
 
     [Header("Crouching")]
-    [SerializeField] private float crouchSpeed;
-    [SerializeField] private float crouchYScale;
-    private float startYScale;
+    [SerializeField] private float crouchSpeed = 1.5f;
+    [SerializeField] private float crouchYScale = 0.5f;
+    private float startYScale;  
 
-    [Header("KeyBinds")]
-    public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode sprintKey = KeyCode.LeftControl;
-    public KeyCode crouchKey = KeyCode.LeftShift;
+    [Header("Keybinds")]
+    [SerializeField] KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] KeyCode crouchKey = KeyCode.LeftControl;
 
-    public Transform orientation;
+    [Header("Drag")]
+    [SerializeField] float groundDrag = 6f;
+    [SerializeField] float airDrag = 3f;
 
-    float horizontalInput;
-    float verticalInput;
+    float horizontalMovement;
+    float verticalMovement;
+
+    [Header("Ground Detection")]
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask groundMask;
+    [SerializeField] float groundDistance = 0.2f;
+    public bool isGrounded { get; private set; }
 
     Vector3 moveDirection;
+    Vector3 slopeMoveDirection;
+
     Rigidbody rb;
 
-    [Header("Ground Check")]
-    public float playerHeight;
-    public LayerMask whatIsGround;
-    bool grounded;
-
-    [Header("Slope Handling")]
-    [SerializeField] private float maxSlopeangle;
-    private RaycastHit slopeHit;
-    private bool exitingSlope;
+    RaycastHit slopeHit;
 
     public MovementState movementState;
 
@@ -55,12 +62,117 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
-    void Start()
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight / 2 + 0.5f))
+        {
+            if (slopeHit.normal != Vector3.up)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation= true;
+        rb.freezeRotation = true;
 
         startYScale = transform.localScale.y;
+    }
+
+    private void Update()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        MyInput();
+        ControlDrag();
+        ControlSpeed();
+
+        if (Input.GetKeyDown(jumpKey) && isGrounded)
+        {
+            Jump();
+        }
+
+        slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+    }
+
+    void MyInput()
+    {
+        horizontalMovement = Input.GetAxisRaw("Horizontal");
+        verticalMovement = Input.GetAxisRaw("Vertical");
+
+        moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
+    }
+
+    void Jump()
+    {
+        if (isGrounded)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    void ControlSpeed()
+    {
+        if (Input.GetKey(sprintKey) && isGrounded)
+        {
+            moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+        }
+        else if (Input.GetKey(crouchKey) && isGrounded)
+        {
+            moveSpeed = Mathf.Lerp(moveSpeed, crouchSpeed, acceleration * Time.deltaTime);
+        }
+        else
+        {
+            moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
+        }
+    }
+
+    void ControlDrag()
+    {
+        if (isGrounded)
+        {
+            rb.drag = groundDrag;
+        }
+        else
+        {
+            rb.drag = airDrag;
+        }
+    }
+
+    void StateHandler()
+    {
+        // mode crouching
+        if (Input.GetKey(crouchKey))
+        {
+            movementState = MovementState.crouching;
+            moveSpeed = crouchSpeed;
+        }
+        // mode sprinting
+        else if (isGrounded && Input.GetKey(sprintKey))
+        {
+            movementState = MovementState.sprinting;
+            moveSpeed = sprintSpeed;
+        }
+
+        // mode grounded
+        else if (isGrounded)
+        {
+            movementState = MovementState.walking;
+            moveSpeed = walkSpeed;
+        }
+        else
+        {
+            movementState = MovementState.air;
+        }
+
     }
 
     private void FixedUpdate()
@@ -68,160 +180,29 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
-    void Update()
+    void MovePlayer()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-        MyImputs();
-        speedControl();
-        StateHandler();
-
-        // on slope
-        if (OnSlope() && !exitingSlope)
+        if (isGrounded && !OnSlope())
         {
-            rb.AddForce(GetSlopeMoveDirection() * speed * 20f, ForceMode.Force);
-
-            if (rb.velocity.y > 0)
-            {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
-            }
+            rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
-
-        // turn gravity of on slope
-        rb.useGravity = !OnSlope();
-
-
-        // in air
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
-    }
-
-    private void MyImputs()
-    { 
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
-        // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded) 
+        else if (isGrounded && OnSlope())
         {
-            readyToJump = false;
-            Jump();
-            Invoke(nameof(ResetJump),jumpCooldown);
+            rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         }
-
+        else if (!isGrounded)
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier, ForceMode.Acceleration);
+        }
         // start crouch
-        if (Input.GetKeyDown(crouchKey)) 
+        if (Input.GetKeyDown(crouchKey))
         {
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
-
-        // stop crouch
-        if (Input.GetKeyUp(crouchKey)) 
-        {
+        else if (Input.GetKeyUp(crouchKey))
+        { 
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
-    }
-
-    private void MovePlayer() 
-    { 
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        if (grounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
-        else if (!grounded)
-            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
-    }
-
-
-    private void Move(Vector3 moveDir)
-    {
-        transform.position += (moveDir.x * transform.right + moveDir.z * transform.forward) * (speed * Time.deltaTime);
-    }
-
-    private void speedControl() 
-    {
-        // limit speed on slope
-        if (OnSlope() && !exitingSlope)
-        {
-            if (rb.velocity.magnitude > speed)
-            {
-                rb.velocity = rb.velocity.normalized * speed;
-            }
-        }
-        else
-        {
-            // limit speed on ground in air
-            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-            // limit velocity if need
-            if (flatVel.magnitude > speed)
-            {
-                Vector3 limitedVel = flatVel.normalized * speed;
-                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-            }
-        }
-
-    }
-
-    private void Jump()
-    {
-        exitingSlope = true;
-
-        // reset velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-    }
-
-    private void ResetJump() 
-    {
-        readyToJump = true;
-        exitingSlope = false;
-    }
-
-
-
-    private void StateHandler()
-    {
-        // mode crouching
-        if (Input.GetKey(crouchKey)) 
-        {
-            movementState = MovementState.crouching;
-            speed = crouchSpeed;
-        }
-        // mode sprinting
-        else if (grounded && Input.GetKey(sprintKey))
-        {
-            movementState = MovementState.sprinting;
-            speed = sprintSpeed;
-        }
-
-        // mode grounded
-        else if (grounded)
-        {
-            movementState = MovementState.walking;
-            speed = walkSpeed;
-        }
-        else
-        {
-            movementState = MovementState.air;
-        }
-    }
-
-    private bool OnSlope() 
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
-        {
-            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-            return angle < maxSlopeangle && angle != 0; 
-        }
-        return false;
-    }
-
-    private Vector3 GetSlopeMoveDirection()
-    {
-        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 }
