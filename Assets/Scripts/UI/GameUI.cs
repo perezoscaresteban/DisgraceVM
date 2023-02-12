@@ -9,11 +9,11 @@ public class GameUI : MonoBehaviour
     //[SerializeField][Range(0, 1)] float UIHealthBarVal;
 
     [SerializeField] GameObject player;
-    private PlayerHealthController playerHealthController;
+    private HealthController playerHealthController;
 
     private void Awake()
     {
-        playerHealthController = player.GetComponent<PlayerHealthController>();
+        playerHealthController = player.GetComponent<HealthController>();
     }
 
     // Update is called once per frame

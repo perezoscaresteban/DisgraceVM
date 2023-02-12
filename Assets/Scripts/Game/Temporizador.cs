@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Temporizador : MonoBehaviour
 {
-    private float timeI;
+    private float timeT;
 
     private void Update()
     {
@@ -14,11 +14,16 @@ public class Temporizador : MonoBehaviour
 
     private void UpdateTimer()
     {
-        timeI += Time.deltaTime;
+        timeT += Time.deltaTime;
     }
 
-    public float timeAccount() 
+    public float TimeAccount() 
     {
-        return timeI;
+        return timeT;
+    }
+
+    public void ResetTimer() 
+    {
+        timeT = 0;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealthController : MonoBehaviour
+public class HealthController : MonoBehaviour
 {
     [SerializeField] float maxHealth;
     [SerializeField] float currentHealth;
@@ -12,10 +12,9 @@ public class PlayerHealthController : MonoBehaviour
     void Awake()
     {
         currentHealth = maxHealth;
-        Debug.Log(currentHealth);
     }
 
-    void TakeDamage(float damage) 
+    public void TakeDamage(float damage) 
     {
         //Play Sound Effect
 

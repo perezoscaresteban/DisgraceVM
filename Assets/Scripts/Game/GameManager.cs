@@ -6,8 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool dontDestroyOnLoad;
-    [SerializeField] PlayerHealthController playerHealthController;
-    [SerializeField] GameUI gameUI;
 
     public float coins;
 

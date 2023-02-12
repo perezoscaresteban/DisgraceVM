@@ -27,7 +27,6 @@ public enum EnemyRotation {
 
 public class EnemyController : MonoBehaviour
 {
-
     [SerializeField] private Transform objetive;
     [SerializeField] LayerMask playerMask   ;
     [SerializeField] private Transform toPatrol;
@@ -38,6 +37,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float rangeMeleeAttack;
     [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private float damage;
+    [SerializeField] GameObject player;
+    private HealthController playerHealthController;
+
     private float originalSpeed;
 
     public void SetCurrentState()
@@ -143,12 +146,19 @@ public class EnemyController : MonoBehaviour
         {
             speed = originalSpeed;
         }
+        playerHealthController.TakeDamage(damage * Time.deltaTime);
 
     }
+
+    private void Awake()
+    {
+        playerHealthController = player.GetComponent<HealthController>();
+    }
+
     private void Update()
     {
         enemyAnimator.SetFloat("Speed", speed);
-        enemyAnimator.SetBool("Attack", AbleToAttack()); 
+        enemyAnimator.SetBool("Attack", AbleToAttack());
         SetCurrentState();
     }
 
