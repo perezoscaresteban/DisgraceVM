@@ -754,6 +754,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1546250725856846149, guid: 975009c601bf0844dabb520d6795cd67,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546250726575490540, guid: 975009c601bf0844dabb520d6795cd67,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.72
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 975009c601bf0844dabb520d6795cd67, type: 3}
 --- !u!1001 &1919540687985807852
@@ -1043,6 +1053,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RoyalFamilyQueen
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454075710029341841, guid: e1f95fde31c6dee42be3ef9584d15709,
+        type: 3}
+      propertyPath: m_Height
+      value: 1.7693086
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454075710029341841, guid: e1f95fde31c6dee42be3ef9584d15709,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.938216
       objectReference: {fileID: 0}
     - target: {fileID: 5454075710029341854, guid: e1f95fde31c6dee42be3ef9584d15709,
         type: 3}
