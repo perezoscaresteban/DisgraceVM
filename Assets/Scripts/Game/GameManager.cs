@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public bool dontDestroyOnLoad;
+    [SerializeField] PlayerHealthController playerHealthController;
+    [SerializeField] GameUI gameUI;
+
+    public float coins;
 
     private void Awake()
     {
@@ -34,4 +38,11 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    void addCoins(float c)
+    {
+        coins += c;
+    }
+
+
 }
