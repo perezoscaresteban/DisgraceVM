@@ -32,11 +32,11 @@ Clásicas de juegos de sigilo en primera persona.
 
 
 IMPUTS (Hasta el momento)
-WASD - Movimiento
-Barra espaciadora - Salto
-Ctrl - Agacharse / Sigilo
-Shift - Correr
-F - Acción (Esfera-prefab) aún no logré que pueda hacer daño al enemigo
+- WASD -> Movimiento
+- Barra espaciadora -> Salto
+- Ctrl -> Agacharse / Sigilo
+- Shift -> Correr
+- F -> Acción (Esfera-prefab) aún no logré que pueda hacer daño al enemigo
 
 
 SE IMPLEMENTÓ HASTA EL MOMENTO
