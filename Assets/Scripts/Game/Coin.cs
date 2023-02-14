@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] float value;
+    public float value;
 
-    private void Take()
+    public void Take()
     {
         GameManager.Instance.AddCoins(value);
         Destroy(gameObject);

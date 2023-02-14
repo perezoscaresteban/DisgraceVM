@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -14,9 +15,8 @@ public enum EnemyState
     Idle,
     Patrol,
     Pursuit,
-    RunAway,
-    Seeker,
-    Attack
+    Attack,
+    Stunned
 }
 
 public enum EnemyRotation { 
@@ -28,20 +28,21 @@ public enum EnemyRotation {
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Transform objetive;
-    [SerializeField] LayerMask playerMask   ;
+    [SerializeField] LayerMask playerMask;
     [SerializeField] private Transform toPatrol;
     [SerializeField] private float timeToPatrol;
     [SerializeField] private EnemyState currentState;
-    [SerializeField] private float speed;
+    [SerializeField] private float pursuitSpeed;
+    private float speed;
     [SerializeField] private float pursuitDistance;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float rangeMeleeAttack;
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] private float damage;
     [SerializeField] GameObject player;
+    [SerializeField] Transform rayCastPoint;
     private HealthController playerHealthController;
-
-    private float originalSpeed;
+    public bool stunned;
 
     public void SetCurrentState()
     {
@@ -56,15 +57,13 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Pursuit:
                 ExecutePursuit();
                 break;
-            case EnemyState.RunAway:
-                ExecuteRunAway();
-                break;
-            case EnemyState.Seeker:
-                ExecuteSeeker();
-                break;
             case EnemyState.Attack:
                 ExecuteAttack();
                 break;
+            case EnemyState.Stunned:
+                ExecuteStunned();
+                break;
+
             default:
                 Debug.LogError("Current state is invalid");
                 break;
@@ -73,27 +72,22 @@ public class EnemyController : MonoBehaviour
 
     private void ExecuteIdle()
     {
-        enemyAnimator.SetFloat("Speed", 0);
-
+        speed = 0;
+        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * 10);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, 10))
+        {
+            Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+            if (hitInfo.collider.tag == "Player")
+            {
+                currentState = EnemyState.Pursuit;
+            }
+        }
     }
 
 
     private void ExecutePatrol()
     {
-
-        var vectorToPatrol = toPatrol.position - transform.position;
-        var distance = vectorToPatrol.magnitude;
-        if (distance < pursuitDistance)
-        {
-            Quaternion newRotation = Quaternion.LookRotation(objetive.position - transform.position);
-            transform.rotation = newRotation;
-            transform.position += vectorToPatrol.normalized * (speed * Time.deltaTime);
-
-        }
-        else
-        {
-            currentState = EnemyState.Idle; 
-        }
 
     }
 
@@ -103,39 +97,28 @@ public class EnemyController : MonoBehaviour
         var distance = vectorToObjetive.magnitude;
         if (AbleToAttack())
         {
-            ExecuteAttack();
+            currentState = EnemyState.Attack;
         }
         else if (distance <= pursuitDistance && distance >= rangeMeleeAttack)
         {
-            speed = originalSpeed;
+            Debug.Log(speed);
+            speed = pursuitSpeed;
             Quaternion newRotation = Quaternion.LookRotation(objetive.position - transform.position);
             transform.rotation = newRotation;
-            transform.position += vectorToObjetive.normalized * (speed * Time.deltaTime);
+            transform.position += vectorToObjetive.normalized * (pursuitSpeed * Time.deltaTime);
         }
         else if (distance > pursuitDistance)
         {
-            ExecuteIdle();
-        }
-    }
-
-    private void ExecuteRunAway()
-    {
-        speed = originalSpeed;
-        var vectorToObjetive = transform.position - objetive.position;
-        var distance = vectorToObjetive.magnitude;
-        if (distance < pursuitDistance)
-        {
-            Quaternion newRotation = Quaternion.LookRotation(objetive.position - transform.position);
-            transform.rotation = newRotation;
-            transform.position += vectorToObjetive.normalized * (speed * Time.deltaTime);
+            currentState = EnemyState.Idle;
         }
 
     }
 
-    private void ExecuteSeeker()
+    private void ExecuteStunned()
     {
-        Quaternion newRotation = Quaternion.LookRotation(objetive.position - transform.position);
-        transform.rotation = Quaternion.Lerp(transform.rotation,newRotation, Time.deltaTime * rotationSpeed);
+        speed = 0;
+        Debug.Log(stunned);
+        enemyAnimator.SetBool("Stunned", stunned);
     }
 
     private void ExecuteAttack()
@@ -144,7 +127,8 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetBool("Attack", true);
         if (!AbleToAttack())
         {
-            speed = originalSpeed;
+            speed = pursuitSpeed;
+            currentState = EnemyState.Pursuit;
         }
         playerHealthController.TakeDamage(damage * Time.deltaTime);
 
@@ -164,12 +148,15 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        originalSpeed = speed;
     }
 
-    private bool AbleToAttack()
+    public bool AbleToAttack()
     {
         return Physics.CheckSphere(transform.position, rangeMeleeAttack, playerMask);
     }
-
+    public void Stun()
+    {
+        stunned = true;
+        currentState = EnemyState.Stunned;
+    }
 }

@@ -35,7 +35,9 @@ public class RatSphere : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<HealthController>().TakeDamage(damage);
+            var enemy = other.GetComponent<HealthController>();
+            other.GetComponent<HealthController>().TakeDamage(damage*Time.deltaTime);
+            other.GetComponent<EnemyController>().Stun();
         }
     }
 }
