@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class HealthController : MonoBehaviour
 {
-    [SerializeField] float maxHealth;
-    [SerializeField] float currentHealth;
+    public float maxHealth;
+    public float health;
     //[SerializeField] Animator animator;
     //Sound
 
     void Awake()
     {
-        currentHealth = maxHealth;
+        health = maxHealth;
     }
 
     public void TakeDamage(float damage) 
     {
         //Play Sound Effect
 
-        currentHealth -= damage;
-        if (currentHealth < 0)
+
+        health -= damage;
+        if (health < 0)
         { 
             //Animation.SetBool("Dead",True)
             //Show GAME OVER screen
@@ -30,20 +31,10 @@ public class HealthController : MonoBehaviour
     {
         //Play Sound Effect
 
-        currentHealth += amount;
-        if (currentHealth + amount > maxHealth)
+        health += amount;
+        if (health + amount > maxHealth)
         {
-            currentHealth = maxHealth;
+            health = maxHealth;
         }
-    }
-
-    public float playerHealth() 
-    {
-        return currentHealth;
-    }
-
-    public float playerMaxHealth()
-    {
-        return maxHealth;
     }
 }

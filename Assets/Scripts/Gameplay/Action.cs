@@ -8,8 +8,9 @@ public class Action : MonoBehaviour
 {
 
     [SerializeField] RatSphere ratSphere;
-    [SerializeField] Transform place;
+    [SerializeField] Transform ratSpherePoint;
     [SerializeField] float timeToReload;
+    private float timer;
 
     void Awake()
     {
@@ -20,10 +21,10 @@ public class Action : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (Time.time - timeToReload > 0)
+            if (Time.time > timer)
             {
-                Instantiate(ratSphere, place.position, Quaternion.Euler(Vector3.forward));
-                timeToReload += Time.time;
+                Instantiate(ratSphere, ratSpherePoint.position, Quaternion.Euler(Vector3.forward));
+                timer = Time.time + timeToReload;
             }
         }
     }

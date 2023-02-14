@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager Instance;
     public bool dontDestroyOnLoad;
 
+    public HealthController playerHealthController;
     public float coins;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
 
             if (dontDestroyOnLoad)
             {
@@ -28,19 +29,18 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
 
     void Update()
     {
-        
+
     }
 
-    void addCoins(float c)
+    public void AddCoins(float c)
     {
         coins += c;
     }
-
 
 }

@@ -7,8 +7,9 @@ using UnityEngine;
 
 public class RatSphere : MonoBehaviour
 {
-    [SerializeField] float damage;
-    [SerializeField] float time;
+    public float damage;
+    [SerializeField] float timerKill;
+    public float timerReload;
 
     void Awake()
     {
@@ -17,14 +18,24 @@ public class RatSphere : MonoBehaviour
 
     void Update()
     {
+        Destroy(gameObject, timerKill);
+    }
 
-        if (time <= 0)
+    private void OnColissionStay(Collider other)
+    {
+        
+        if (other.TryGetComponent<HealthController>(out var healthController))
         {
-            Destroy(gameObject, time);
+            healthController.TakeDamage(damage);
+            Debug.Log(healthController.health);
         }
-        else
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Enemy")
         {
-            time -= Time.deltaTime;
+            other.GetComponent<HealthController>().TakeDamage(damage);
         }
     }
 }
