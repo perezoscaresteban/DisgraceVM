@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class RatSphere : MonoBehaviour
 {
-    public float damage;
+    [SerializeField] float damage;
     [SerializeField] float timerKill;
     public float timerReload;
 

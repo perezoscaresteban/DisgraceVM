@@ -27,6 +27,7 @@ public enum EnemyRotation {
 
 public class EnemyController : MonoBehaviour
 {
+    [SerializeField] HealthController healthController;
     [SerializeField] private Transform objetive;
     [SerializeField] LayerMask playerMask;
     [SerializeField] private float timeToPatrol;
@@ -47,12 +48,15 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Transform rayCastPoint;
     private HealthController playerHealthController;
     public bool stunned;
+    private Ragdoll ragdoll;
 
     private void Awake()
     {
         playerHealthController = player.GetComponent<HealthController>();
         toPatrol = gameObject.GetComponent<Patrol>();
+        healthController = gameObject.GetComponent<HealthController>();
         pointToPatrol = toPatrol.NextPoint();
+        ragdoll = gameObject.GetComponent<Ragdoll>();
     }
 
     private void Update()
@@ -60,6 +64,8 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetFloat("Speed", speed);
         enemyAnimator.SetBool("Attack", AbleToAttack());
         SetCurrentState();
+        Debug.Log(ragdoll);
+        if (healthController.health <= 0) { ragdoll.Activate(); } 
     }
 
     public void SetCurrentState()
