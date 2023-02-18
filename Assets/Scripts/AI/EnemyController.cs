@@ -64,7 +64,6 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetFloat("Speed", speed);
         enemyAnimator.SetBool("Attack", AbleToAttack());
         SetCurrentState();
-        Debug.Log(ragdoll);
         if (healthController.health <= 0) { ragdoll.Activate(); } 
     }
 
