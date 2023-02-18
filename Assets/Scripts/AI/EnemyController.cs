@@ -29,12 +29,16 @@ public class EnemyController : MonoBehaviour
 {
     [SerializeField] private Transform objetive;
     [SerializeField] LayerMask playerMask;
-    [SerializeField] private Transform toPatrol;
     [SerializeField] private float timeToPatrol;
+    private float countToPatrol;
+    private Patrol toPatrol;
+    private Transform pointToPatrol;
+    [SerializeField] private float walkSpeed;
     [SerializeField] private EnemyState currentState;
     [SerializeField] private float pursuitSpeed;
     private float speed;
     [SerializeField] private float pursuitDistance;
+    [SerializeField] private float lineVision;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private float rangeMeleeAttack;
     [SerializeField] private Animator enemyAnimator;
@@ -43,6 +47,20 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Transform rayCastPoint;
     private HealthController playerHealthController;
     public bool stunned;
+
+    private void Awake()
+    {
+        playerHealthController = player.GetComponent<HealthController>();
+        toPatrol = gameObject.GetComponent<Patrol>();
+        pointToPatrol = toPatrol.NextPoint();
+    }
+
+    private void Update()
+    {
+        enemyAnimator.SetFloat("Speed", speed);
+        enemyAnimator.SetBool("Attack", AbleToAttack());
+        SetCurrentState();
+    }
 
     public void SetCurrentState()
     {
@@ -73,21 +91,50 @@ public class EnemyController : MonoBehaviour
     private void ExecuteIdle()
     {
         speed = 0;
-        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * 10);
+        countToPatrol -= Time.deltaTime;
+        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * lineVision);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, 10))
+        if (Physics.Raycast(ray, out hitInfo, lineVision))
         {
-            Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
+            Debug.DrawRay(ray.origin, ray.direction * lineVision, Color.yellow);
+            if (hitInfo.collider.tag == "Player")
+            {
+                currentState = EnemyState.Pursuit;
+            }
+        } 
+        else if (countToPatrol < 0) 
+        {
+            currentState = EnemyState.Patrol;
+        }
+    }
+
+    private void ExecutePatrol()
+    {
+        speed = walkSpeed;
+        countToPatrol = timeToPatrol;
+        var vectorToObjetive = pointToPatrol.position - transform.position;
+        var distance = vectorToObjetive;
+
+        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * lineVision);
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo, lineVision))
+        {
+            Debug.DrawRay(ray.origin, ray.direction * lineVision, Color.yellow);
             if (hitInfo.collider.tag == "Player")
             {
                 currentState = EnemyState.Pursuit;
             }
         }
-    }
+        Debug.DrawRay(ray.origin, vectorToObjetive, Color.blue);
+        if (Vector2.Distance(pointToPatrol.position, transform.position) < 0.5)
 
+        {
+            pointToPatrol = toPatrol.NextPoint();
+        }
+            Quaternion newRotation = Quaternion.LookRotation(pointToPatrol.position - transform.position);
+            transform.rotation = newRotation;
+            transform.position += vectorToObjetive.normalized * (walkSpeed * Time.deltaTime);
 
-    private void ExecutePatrol()
-    {
 
     }
 
@@ -101,7 +148,6 @@ public class EnemyController : MonoBehaviour
         }
         else if (distance <= pursuitDistance && distance >= rangeMeleeAttack)
         {
-            Debug.Log(speed);
             speed = pursuitSpeed;
             Quaternion newRotation = Quaternion.LookRotation(objetive.position - transform.position);
             transform.rotation = newRotation;
@@ -117,7 +163,6 @@ public class EnemyController : MonoBehaviour
     private void ExecuteStunned()
     {
         speed = 0;
-        Debug.Log(stunned);
         enemyAnimator.SetBool("Stunned", stunned);
     }
 
@@ -132,22 +177,6 @@ public class EnemyController : MonoBehaviour
         }
         playerHealthController.TakeDamage(damage * Time.deltaTime);
 
-    }
-
-    private void Awake()
-    {
-        playerHealthController = player.GetComponent<HealthController>();
-    }
-
-    private void Update()
-    {
-        enemyAnimator.SetFloat("Speed", speed);
-        enemyAnimator.SetBool("Attack", AbleToAttack());
-        SetCurrentState();
-    }
-
-    private void Start()
-    {
     }
 
     public bool AbleToAttack()
