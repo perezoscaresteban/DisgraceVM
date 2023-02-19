@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public bool dontDestroyOnLoad;
 
-    public HealthController playerHealthController;
     public float coins;
 
     private void Awake()
@@ -41,6 +40,7 @@ public class GameManager : MonoBehaviour
     public void AddCoins(float c)
     {
         coins += c;
+        HUD.Instance.UpdateCoins(coins);
     }
 
 }
