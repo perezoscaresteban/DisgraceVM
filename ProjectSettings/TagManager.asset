@@ -7,6 +7,8 @@ TagManager:
   - Lamp
   - Enemy
   - Coin
+  - Power
+  - Ground
   layers:
   - Default
   - TransparentFX

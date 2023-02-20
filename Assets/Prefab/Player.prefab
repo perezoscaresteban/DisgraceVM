@@ -72,11 +72,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1546250724886849172}
   - component: {fileID: 1546250724886849175}
+  - component: {fileID: 1546250726456729389}
   - component: {fileID: 1546250724886849170}
   - component: {fileID: 1546250724886849173}
   - component: {fileID: 2122201205}
-  - component: {fileID: 2122201210}
-  - component: {fileID: 1546250726456729389}
+  - component: {fileID: 2122201208}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -120,6 +120,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!136 &1546250726456729389
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546250724886849161}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5467663
+  m_Height: 2.1902294
+  m_Direction: 1
+  m_Center: {x: 0.0023403168, y: -0.084842205, z: 0}
 --- !u!114 &1546250724886849170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   health: 10
---- !u!114 &2122201210
+--- !u!114 &2122201208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,29 +205,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1546250724886849161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79d37042250a0914893707045bf5bc6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 35cfd9ecc1715e04086434c1c964c1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ratSphere: {fileID: 2808220234389451778, guid: 41d23176891c45c499aa88847d6fe679,
-    type: 3}
-  ratSpherePoint: {fileID: 178293688}
-  timeToReload: 5
-  point: {fileID: 1546250726575490540}
-  range: 3
---- !u!136 &1546250726456729389
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1546250724886849161}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5467663
-  m_Height: 2.1902294
-  m_Direction: 1
-  m_Center: {x: 0.0023403168, y: -0.084842205, z: 0}
+  powerKey: 324
+  actionKey: 101
+  origin: {fileID: 1546250726575490540}
+  power: {fileID: -3423323908261983792, guid: 4daed2c24300c8f4584d6b71a1938606, type: 3}
 --- !u!1 &1546250725309992679
 GameObject:
   m_ObjectHideFlags: 0

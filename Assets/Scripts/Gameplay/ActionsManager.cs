@@ -1,50 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class ActionsManager : MonoBehaviour
 {
-    [SerializeField] private List<Action> actionsLs;
-    private Dictionary<int, Action> actions;
+    [SerializeField] private KeyCode actionKey;
+    [SerializeField] private KeyCode powerKey;
+    [SerializeField] private KeyCode nextPower;
+    [SerializeField] private List<Power> powersLs;
+    [SerializeField] Transform origin;
+    private Dictionary<int, Power> powers;
     private int index;
     private int maxIndex;
+    private float timer;
+    private Power power;
+
 
     void Awake() 
     { 
         index = 0;
-        actions = new Dictionary<int, Action>();
-        foreach (Action e in actionsLs) 
+        powers = new Dictionary<int, Power>();
+        foreach (Power e in powersLs) 
         {
-            actions.Add(index, e);
+            powers.Add(index, e);
             index++;
         }
         index = 0;
-        maxIndex = actionsLs.Count-1;
+        maxIndex = powersLs.Count-1;
+        power = powers[0];
+
     }
 
     void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(nextPower)) 
+        { 
+            //NEXT POWER
+        }
+        if (Input.GetKeyDown(actionKey))
         {
-            this.GetNextAction();
+            Ray ray = new Ray(origin.transform.position, origin.transform.forward * 2);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo, 2))
+            {
+                if (hitInfo.collider.tag == "Coin")
+                {
+                    var coin = hitInfo.collider.GetComponent<Coin>();
+                    coin.Take();
+                }
+            }
+        }
+        if (Input.GetKeyDown(powerKey) && Time.time > timer)
+        {
+            Ray ray = new Ray(origin.transform.position, origin.transform.forward * power.range);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo, power.range)) 
+            {
+                Debug.DrawRay(ray.origin, hitInfo.point, Color.magenta);
+                if (power.coorectTag(hitInfo.collider.tag)) 
+                {
+                    Instantiate(power, origin.position +  ray.direction* hitInfo.distance, Quaternion.Euler(Vector3.forward));
+                    timer = Time.time + power.cooldown;
+                }
+            }
         }
     }
-
-    public Action GetAction(int n) 
+    /*
+    public void NextPower()
     {
-        return actions[n];
-    }
-
-    public Action GetNextAction()
-    {
-        var res = actions[index];
-
-        index++;
-        if (index > maxIndex)
+        if (index + 1 > maxIndex) 
         {
             index = 0;
         }
-        Debug.Log(index+" "+res);
-        return res;
+        else
+        {
+            index++;
+        }
+        power = powers[0];
     }
+    */
 }
