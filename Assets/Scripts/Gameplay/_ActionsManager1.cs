@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class _ActionsManager : MonoBehaviour
+public class ActionsManager : MonoBehaviour
 {
     [SerializeField] private KeyCode actionKey;
     [SerializeField] private KeyCode powerKey;
