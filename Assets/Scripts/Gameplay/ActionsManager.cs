@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class _ActionsManager : MonoBehaviour
+public class ActionsManager : MonoBehaviour
 {
     [SerializeField] private KeyCode actionKey;
     [SerializeField] private KeyCode powerKey;
@@ -38,8 +38,8 @@ public class _ActionsManager : MonoBehaviour
     void Update() 
     {
         if (Input.GetKeyDown(nextPower)) 
-        { 
-            //NEXT POWER
+        {
+            NextPower();
         }
         if (Input.GetKeyDown(actionKey))
         {
@@ -70,7 +70,6 @@ public class _ActionsManager : MonoBehaviour
             }
         }
     }
-    /*
     public void NextPower()
     {
         if (index + 1 > maxIndex) 
@@ -81,7 +80,6 @@ public class _ActionsManager : MonoBehaviour
         {
             index++;
         }
-        power = powers[0];
+        power = powers[index];
     }
-    */
 }
