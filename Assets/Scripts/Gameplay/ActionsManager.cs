@@ -6,6 +6,8 @@ using static UnityEngine.UI.Image;
 
 public class ActionsManager : MonoBehaviour
 {
+    [SerializeField] private KeyCode attackKey;
+    [SerializeField] private Animator handsAnimator;
     [SerializeField] private KeyCode actionKey;
     [SerializeField] private KeyCode powerKey;
     [SerializeField] private KeyCode nextPower;
@@ -37,6 +39,11 @@ public class ActionsManager : MonoBehaviour
 
     void Update() 
     {
+        if (Time.time > holdTimer)
+        {
+            handsAnimator.SetBool("Power", false);
+        }
+
         if (Input.GetKeyDown(nextPower)) 
         {
             NextPower();
@@ -64,8 +71,10 @@ public class ActionsManager : MonoBehaviour
                 Debug.DrawRay(ray.origin, hitInfo.point, Color.magenta);
                 if (power.coorectTag(hitInfo.collider.tag)) 
                 {
+                    handsAnimator.SetBool("Power", true);
                     Instantiate(power, origin.position +  ray.direction* hitInfo.distance, Quaternion.Euler(Vector3.forward));
                     timer = Time.time + power.cooldown;
+                    holdTimer = Time.time+2;
                 }
             }
         }
