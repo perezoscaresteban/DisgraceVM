@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackKey: 323
-  handsAnimator: {fileID: 4908914239511537526}
+  handsAnimator: {fileID: 0}
   actionKey: 101
   powerKey: 324
   nextPower: 113
@@ -441,8 +441,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.72, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1369054337141898508}
+  m_Children: []
   m_Father: {fileID: 1546250724886849172}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -543,94 +542,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 1546250725856846149}
---- !u!1001 &1546250726877010663
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1546250726575490540}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.46
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.18
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.17
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9961947
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.08715578
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_Name
-      value: Crouch Walk Forward Skin
-      objectReference: {fileID: 0}
-    - target: {fileID: 4317842025408049616, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 62df7751624faa042af673a5eb437e6c, type: 2}
-    - target: {fileID: 5866666021909216657, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 915a5fe0f1776454eae88d941a590fd5, type: 2}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58d72a72a0f1ae748a5d9d0f6513d45e, type: 3}
---- !u!4 &1369054337141898508 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1546250726877010663}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4908914239511537526 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 58d72a72a0f1ae748a5d9d0f6513d45e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1546250726877010663}
-  m_PrefabAsset: {fileID: 0}

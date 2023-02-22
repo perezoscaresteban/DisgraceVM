@@ -42,6 +42,14 @@ public class ActionsManager : MonoBehaviour
         if (Time.time > holdTimer)
         {
             handsAnimator.SetBool("Power", false);
+            handsAnimator.SetBool("Attack", false);
+
+        }
+
+        if (Input.GetKeyDown(attackKey))
+        {
+            handsAnimator.SetBool("Attack", true);
+            holdTimer = Time.time + 0.5f;
         }
 
         if (Input.GetKeyDown(nextPower)) 
@@ -68,13 +76,13 @@ public class ActionsManager : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo, power.range)) 
             {
-                Debug.DrawRay(ray.origin, hitInfo.point, Color.magenta);
+                Debug.DrawRay(ray.origin, hitInfo.point, Color.yellow);
                 if (power.coorectTag(hitInfo.collider.tag)) 
                 {
                     handsAnimator.SetBool("Power", true);
                     Instantiate(power, origin.position +  ray.direction* hitInfo.distance, Quaternion.Euler(Vector3.forward));
                     timer = Time.time + power.cooldown;
-                    holdTimer = Time.time+2;
+                    holdTimer = Time.time + 1;
                 }
             }
         }

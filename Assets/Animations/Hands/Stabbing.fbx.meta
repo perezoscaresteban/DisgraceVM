@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8205cc5cf04eda44ba6930ece41dbbe7
+guid: eff5fe8eed5338a46bdd8065c84f9f89
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,14 +33,14 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Standing 1H Magic Attack 01
+      name: Stabbing
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 69
+      lastFrame: 38
       wrapMode: 0
-      orientationOffsetY: -20
-      level: 0
+      orientationOffsetY: -25
+      level: -0.1
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
