@@ -9,16 +9,17 @@ public class HUD : MonoBehaviour
 {
     public static HUD Instance;
     public bool dontDestroyOnLoad;
+
     [SerializeField] private Image healthBar;
-    [SerializeField] private GameObject player;
-    private HealthController playerHealthController;
-    [SerializeField] private TMP_Text coins;
+    private float playerHealth;
+    private float playerMaxHealth;
+
     [SerializeField] private Image coin;
-    //[SerializeField] TextMeshProUGUI coins;
+    [SerializeField] private TMP_Text coins;
+
 
     private void Awake()
     {
-        playerHealthController = player.GetComponent<HealthController>();
         if (Instance == null)
         {
             Instance = this;
@@ -34,14 +35,22 @@ public class HUD : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateHealth(float amount)
     {
-        healthBar.fillAmount = playerHealthController.health / playerHealthController.maxHealth;
+        playerHealth = amount;
+        healthBar.fillAmount = playerHealth/ playerMaxHealth;
+    }
+
+    public void UpdateMaxHealth(float amount)
+    {
+        playerMaxHealth = amount;
+        //healthBar.fillAmount = playerHealth / playerMaxHealth;
     }
 
     public void UpdateCoins(float n)
     {
         coins.text = n.ToString();
     }
+
+
 }

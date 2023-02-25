@@ -46,13 +46,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float damage;
     [SerializeField] GameObject player;
     [SerializeField] Transform rayCastPoint;
-    private HealthController playerHealthController;
+    private PlayerHealthController playerHealthController;
     public bool stunned;
     private Ragdoll ragdoll;
 
     private void Awake()
     {
-        playerHealthController = player.GetComponent<HealthController>();
+        playerHealthController = player.GetComponent<PlayerHealthController>();
         toPatrol = gameObject.GetComponent<Patrol>();
         healthController = gameObject.GetComponent<HealthController>();
         pointToPatrol = toPatrol.NextPoint();
