@@ -26,17 +26,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-
-    }
-
-
-    void Update()
-    {
-
-    }
-
     public void AddCoins(float c)
     {
         coins += c;

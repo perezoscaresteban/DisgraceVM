@@ -18,7 +18,6 @@ public class ActionsManager : MonoBehaviour
     private int maxIndex;
     private float timer;
     private Power power;
-    private bool raycastRequired;
     private float holdTimer;
 
 
@@ -49,7 +48,20 @@ public class ActionsManager : MonoBehaviour
         if (Input.GetKeyDown(attackKey))
         {
             handsAnimator.SetBool("Attack", true);
-            holdTimer = Time.time + 0.5f;
+
+            Ray ray = new Ray(origin.transform.position, origin.transform.forward * 2);
+            RaycastHit hitInfo;
+            Debug.DrawRay(ray.origin, ray.direction, Color.yellow);
+
+            if (Physics.Raycast(ray, out hitInfo, 2))
+            {
+                if (hitInfo.collider.tag == "Enemy")
+                {
+                    var enemy = hitInfo.collider.GetComponent<HealthController>();
+                    enemy.TakeDamage(5);
+                }
+            }
+            holdTimer = Time.time + 1;
         }
 
         if (Input.GetKeyDown(nextPower)) 
@@ -87,6 +99,7 @@ public class ActionsManager : MonoBehaviour
             }
         }
     }
+
     public void NextPower()
     {
         if (index + 1 > maxIndex) 

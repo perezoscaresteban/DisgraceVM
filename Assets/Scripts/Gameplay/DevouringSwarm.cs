@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DevouringSwarm : Power
 {
+    private List<GameObject> objectives;
     void Awake()
     {
 
@@ -17,7 +18,6 @@ public class DevouringSwarm : Power
         if (other.TryGetComponent<HealthController>(out var healthController))
         {
             healthController.TakeDamage(damage);
-            Debug.Log(healthController.health);
         }
     }
     private void OnTriggerStay(Collider other)
@@ -26,7 +26,7 @@ public class DevouringSwarm : Power
         {
             var enemy = other.GetComponent<HealthController>();
             other.GetComponent<HealthController>().TakeDamage(damage * Time.deltaTime);
-            other.GetComponent<EnemyController>().Stun();
+            other.GetComponent<EnemyController>().Stun(0.1f);
         }
     }
 

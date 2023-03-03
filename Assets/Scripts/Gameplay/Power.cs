@@ -4,7 +4,7 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class Power : MonoBehaviour
+public abstract class Power : MonoBehaviour
 {
     public float damage;
     public float cooldown;

@@ -16,7 +16,8 @@ public enum EnemyState
     Patrol,
     Pursuit,
     Attack,
-    Stunned
+    Stunned,
+    Died
 }
 
 public enum EnemyRotation { 
@@ -28,35 +29,30 @@ public enum EnemyRotation {
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] HealthController healthController;
-    [SerializeField] private Transform objetive;
-    [SerializeField] LayerMask playerMask;
-    [SerializeField] private float timeToPatrol;
+    [SerializeField] private Transform objective;
+    [SerializeField] protected EnemyData enemyData;
     private float countToPatrol;
     private Patrol toPatrol;
     private Transform pointToPatrol;
-    [SerializeField] private float walkSpeed;
     [SerializeField] private EnemyState currentState;
-    [SerializeField] private float pursuitSpeed;
     private float speed;
-    [SerializeField] private float pursuitDistance;
-    [SerializeField] private float lineVision;
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private float rangeMeleeAttack;
-    [SerializeField] private Animator enemyAnimator;
-    [SerializeField] private float damage;
-    [SerializeField] GameObject player;
-    [SerializeField] Transform rayCastPoint;
-    private PlayerHealthController playerHealthController;
-    public bool stunned;
+    [SerializeField] Transform rayCastPoint; 
+    private float timerStunned;
     private Ragdoll ragdoll;
+
+    public Animator enemyAnimator;
+    public GameObject player;
+    public PlayerHealthController playerHealthController;
 
     private void Awake()
     {
         playerHealthController = player.GetComponent<PlayerHealthController>();
         toPatrol = gameObject.GetComponent<Patrol>();
         healthController = gameObject.GetComponent<HealthController>();
+        //playerHealthController = player.GetComponent<PlayerHealthController>();
         pointToPatrol = toPatrol.NextPoint();
         ragdoll = gameObject.GetComponent<Ragdoll>();
+        countToPatrol = 2;
     }
 
     private void Update()
@@ -64,7 +60,6 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetFloat("Speed", speed);
         enemyAnimator.SetBool("Attack", AbleToAttack());
         SetCurrentState();
-        if (healthController.health <= 0) { ragdoll.Activate(); } 
     }
 
     public void SetCurrentState()
@@ -86,6 +81,9 @@ public class EnemyController : MonoBehaviour
             case EnemyState.Stunned:
                 ExecuteStunned();
                 break;
+            case EnemyState.Died:
+                ExecuteDied();
+                break;
 
             default:
                 Debug.LogError("Current state is invalid");
@@ -97,11 +95,11 @@ public class EnemyController : MonoBehaviour
     {
         speed = 0;
         countToPatrol -= Time.deltaTime;
-        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * lineVision);
+        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * enemyData.lineVision);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, lineVision))
+        if (Physics.Raycast(ray, out hitInfo, enemyData.lineVision))
         {
-            Debug.DrawRay(ray.origin, ray.direction * lineVision, Color.yellow);
+            Debug.DrawRay(ray.origin, ray.direction * enemyData.lineVision, Color.yellow);
             if (hitInfo.collider.tag == "Player")
             {
                 currentState = EnemyState.Pursuit;
@@ -115,22 +113,22 @@ public class EnemyController : MonoBehaviour
 
     private void ExecutePatrol()
     {
-        speed = walkSpeed;
-        countToPatrol = timeToPatrol;
-        var vectorToObjetive = pointToPatrol.position - transform.position;
-        var distance = vectorToObjetive;
+        speed = enemyData.walkSpeed;
+        countToPatrol = enemyData.timeToPatrol;
+        var vectorToObjective = pointToPatrol.position - transform.position;
+        var distance = vectorToObjective;
 
-        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * lineVision);
+        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward * enemyData.lineVision);
         RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, lineVision))
+        if (Physics.Raycast(ray, out hitInfo, enemyData.lineVision))
         {
-            Debug.DrawRay(ray.origin, ray.direction * lineVision, Color.yellow);
+            Debug.DrawRay(ray.origin, ray.direction * enemyData.lineVision, Color.yellow);
             if (hitInfo.collider.tag == "Player")
             {
                 currentState = EnemyState.Pursuit;
             }
         }
-        Debug.DrawRay(ray.origin, vectorToObjetive, Color.blue);
+        Debug.DrawRay(ray.origin, vectorToObjective, Color.blue);
         if (Vector2.Distance(pointToPatrol.position, transform.position) < 0.5)
 
         {
@@ -138,27 +136,26 @@ public class EnemyController : MonoBehaviour
         }
             Quaternion newRotation = Quaternion.LookRotation(pointToPatrol.position - transform.position);
             transform.rotation = newRotation;
-            transform.position += vectorToObjetive.normalized * (walkSpeed * Time.deltaTime);
-
-
+            transform.position += vectorToObjective.normalized * (enemyData.walkSpeed * Time.deltaTime);
     }
 
     private void ExecutePursuit()
     {
-        var vectorToObjetive = objetive.position - transform.position;
-        var distance = vectorToObjetive.magnitude;
+
+        var vectorToObjective = objective.position - transform.position;
+        var distance = vectorToObjective.magnitude;
         if (AbleToAttack())
         {
             currentState = EnemyState.Attack;
         }
-        else if (distance <= pursuitDistance && distance >= rangeMeleeAttack)
+        else if (distance <= enemyData.pursuitDistance && distance >= enemyData.rangeMeleeAttack)
         {
-            speed = pursuitSpeed;
-            Quaternion newRotation = Quaternion.LookRotation(objetive.position - transform.position);
+            speed = enemyData.pursuitSpeed;
+            Quaternion newRotation = Quaternion.LookRotation(objective.position - transform.position);
             transform.rotation = newRotation;
-            transform.position += vectorToObjetive.normalized * (pursuitSpeed * Time.deltaTime);
+            transform.position += vectorToObjective.normalized * (enemyData.pursuitSpeed * Time.deltaTime);
         }
-        else if (distance > pursuitDistance)
+        else if (distance > enemyData.pursuitDistance)
         {
             currentState = EnemyState.Idle;
         }
@@ -168,7 +165,13 @@ public class EnemyController : MonoBehaviour
     private void ExecuteStunned()
     {
         speed = 0;
-        enemyAnimator.SetBool("Stunned", stunned);
+        timerStunned -= Time.deltaTime;
+        if (timerStunned <= 0) 
+        {
+            enemyAnimator.SetBool("Stunned", false);
+            currentState = EnemyState.Pursuit;
+        }
+        //ANIMATOR
     }
 
     private void ExecuteAttack()
@@ -177,20 +180,42 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetBool("Attack", true);
         if (!AbleToAttack())
         {
-            speed = pursuitSpeed;
+            speed = enemyData.pursuitSpeed;
             currentState = EnemyState.Pursuit;
         }
-        playerHealthController.TakeDamage(damage * Time.deltaTime);
+        playerHealthController.TakeDamage(enemyData.damage * Time.deltaTime);
 
+    }
+
+    private void ExecuteDied() 
+    {
+        ragdoll.Activate();
+        Debug.Log(currentState);
     }
 
     public bool AbleToAttack()
     {
-        return Physics.CheckSphere(transform.position, rangeMeleeAttack, playerMask);
+        return Physics.CheckSphere(transform.position, enemyData.rangeMeleeAttack, enemyData.playerMask);
     }
-    public void Stun()
+    public void Stun(float amount)
     {
-        stunned = true;
         currentState = EnemyState.Stunned;
+        enemyAnimator.SetBool("Stunned", true);
+        timerStunned = amount;
+    }
+
+    public void Die() 
+    {
+        currentState = EnemyState.Died;
+    }
+
+    public void Pursuit() 
+    {
+        currentState = EnemyState.Pursuit;
+    }
+
+    public LayerMask PlayerMask() 
+    {
+        return enemyData.playerMask;
     }
 }

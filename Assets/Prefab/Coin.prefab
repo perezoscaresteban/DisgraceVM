@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a563eca103091764a864189c4c0c0641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
+  coinData: {fileID: 11400000, guid: 08128846bfc1232479562dff79882e9e, type: 2}
 --- !u!135 &3391014596581663816
 SphereCollider:
   m_ObjectHideFlags: 0

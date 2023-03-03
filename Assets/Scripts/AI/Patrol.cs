@@ -8,24 +8,25 @@ public class Patrol : MonoBehaviour
 {
     [SerializeField] private List<Transform> patrolPoints;
     private int nextPoint;
+    private int lastIndex;
 
     void Awake()
     {
-        patrolPoints.Reverse();
-        nextPoint = patrolPoints.Count;
+        nextPoint = 0;
+        lastIndex = patrolPoints.Count-1;
 
     }
 
     public Transform NextPoint()
     {
-        if (nextPoint > 0)
+        if (nextPoint < lastIndex)
         {
-            nextPoint -= 1;
+            nextPoint += 1;
         }
         else
         {
             patrolPoints.Reverse();
-            nextPoint = patrolPoints.Count-1;
+            nextPoint = 0;
         }
         return patrolPoints[nextPoint];
     }

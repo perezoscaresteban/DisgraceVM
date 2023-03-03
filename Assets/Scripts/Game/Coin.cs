@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public float value;
+    [SerializeField] protected CoinData coinData;
 
     public void Take()
     {
-        GameManager.Instance.AddCoins(value);
+        GameManager.Instance.AddCoins(coinData.value);
         Destroy(gameObject);
         //AudioManager.Instance.Sound(coinSFX);
     }
