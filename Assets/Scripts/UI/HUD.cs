@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 
 public class HUD : MonoBehaviour
 {
@@ -16,6 +16,8 @@ public class HUD : MonoBehaviour
 
     [SerializeField] private Image coin;
     [SerializeField] private TMP_Text coins;
+
+    public static event Action OnPause;
 
 
     private void Awake()
@@ -35,6 +37,12 @@ public class HUD : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlayerHealthController.OnMaxHealthChange += UpdateMaxHealth;
+        PlayerHealthController.OnHealthChange += UpdateHealth;
+    }
+
     public void UpdateHealth(float amount)
     {
         playerHealth = amount;
@@ -44,7 +52,6 @@ public class HUD : MonoBehaviour
     public void UpdateMaxHealth(float amount)
     {
         playerMaxHealth = amount;
-        //healthBar.fillAmount = playerHealth / playerMaxHealth;
     }
 
     public void UpdateCoins(float n)
@@ -52,5 +59,13 @@ public class HUD : MonoBehaviour
         coins.text = n.ToString();
     }
 
+    public void Pause() 
+    {
+        OnPause?.Invoke();
+    }
 
+    public Action PRUEBA()
+    {
+        return OnPause;
+    }
 }

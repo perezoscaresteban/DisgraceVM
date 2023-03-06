@@ -1,23 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerHealthController : MonoBehaviour
 {
     public float maxHealth;
     public float health;
-    private HUD hUD;
     //[SerializeField] Animator animator;
     //Sound
 
-    void Awake()
+    public static event Action<float> OnHealthChange;
+    public static event Action<float> OnMaxHealthChange;
+
+    void Start()
     {
-        hUD = HUD.Instance;
-        hUD.UpdateMaxHealth(maxHealth);
         health = maxHealth;
+        OnHealthChange?.Invoke(health);
+        OnMaxHealthChange?.Invoke(maxHealth);
     }
-
-
 
     public void TakeDamage(float damage) 
     {
@@ -28,7 +29,7 @@ public class PlayerHealthController : MonoBehaviour
             //Animation.SetBool("Dead",True)
             //Show GAME OVER screen
         }
-        hUD.UpdateHealth(health);
+        OnHealthChange?.Invoke(health);
     }
 
     void Heal(float amount)
@@ -39,6 +40,6 @@ public class PlayerHealthController : MonoBehaviour
         {
             health = maxHealth;
         }
-        hUD.UpdateHealth(health);
+        OnHealthChange?.Invoke(health);
     }
 }

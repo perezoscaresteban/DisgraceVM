@@ -1,36 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthController : MonoBehaviour
+public class EnemyHealthController : MonoBehaviour
 {
-    public float maxHealth;
-    public float health;
+    [SerializeField] protected float maxHealth;
+    [SerializeField] public float health;
     //[SerializeField] Animator animator;
     //Sound
     private EnemyController enemyController;
     [SerializeField] protected EnemyData enemyData;
 
+    public event Action OnDeath;
+
     void Awake()
     {
+        maxHealth = enemyData.maxHealth;
         health = enemyData.maxHealth;
         enemyController = GetComponent<EnemyController>();
     }
+
 
     public void TakeDamage(float damage) 
     {
         //Play Sound Effect
 
-        health -= damage;
-        if (health <= 0)
+        Debug.Log("Take Damage "+damage);
+        if (health <= damage)
         {
-            enemyController.Die();  
+            health = 0;
+            OnDeath?.Invoke();
             //Animation.SetBool("Dead",True)
             //Show GAME OVER screen
         }
         else
         {
-            enemyController.Pursuit();
+            health -= damage;
         }
 
     }
@@ -44,5 +50,10 @@ public class HealthController : MonoBehaviour
         {
             health = maxHealth;
         }
+    }
+
+    public void SubscribeOnDevouringSwarm()
+    {
+        DevouringSwarm.OnDevouringSwarm += TakeDamage;
     }
 }

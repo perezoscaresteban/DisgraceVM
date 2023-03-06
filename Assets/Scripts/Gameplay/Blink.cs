@@ -23,4 +23,9 @@ public class Blink : Power
     {
         return tag == "Ground";
     }
+
+    public void Upgrade()
+    {
+        range *= 1.5f;
+    }
 }

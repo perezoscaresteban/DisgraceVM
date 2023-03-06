@@ -28,7 +28,7 @@ public enum EnemyRotation {
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] HealthController healthController;
+    [SerializeField] EnemyHealthController healthController;
     [SerializeField] private Transform objective;
     [SerializeField] protected EnemyData enemyData;
     private float countToPatrol;
@@ -48,11 +48,15 @@ public class EnemyController : MonoBehaviour
     {
         playerHealthController = player.GetComponent<PlayerHealthController>();
         toPatrol = gameObject.GetComponent<Patrol>();
-        healthController = gameObject.GetComponent<HealthController>();
-        //playerHealthController = player.GetComponent<PlayerHealthController>();
+        healthController = gameObject.GetComponent<EnemyHealthController>();
         pointToPatrol = toPatrol.NextPoint();
         ragdoll = gameObject.GetComponent<Ragdoll>();
         countToPatrol = 2;
+    }
+
+    void Start () 
+    {
+        healthController.OnDeath += Die;
     }
 
     private void Update()
@@ -60,7 +64,8 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetFloat("Speed", speed);
         enemyAnimator.SetBool("Attack", AbleToAttack());
         SetCurrentState();
-    }
+
+   }
 
     public void SetCurrentState()
     {
@@ -190,7 +195,6 @@ public class EnemyController : MonoBehaviour
     private void ExecuteDied() 
     {
         ragdoll.Activate();
-        Debug.Log(currentState);
     }
 
     public bool AbleToAttack()
@@ -207,6 +211,7 @@ public class EnemyController : MonoBehaviour
     public void Die() 
     {
         currentState = EnemyState.Died;
+        gameObject.tag = "Corpse";
     }
 
     public void Pursuit() 

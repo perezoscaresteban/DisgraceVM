@@ -1537,7 +1537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &765198935
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2320,6 +2320,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vsync: {fileID: 534808785}
   fullScreen: {fileID: 1460675945}
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &912715281
 GameObject:
   m_ObjectHideFlags: 0

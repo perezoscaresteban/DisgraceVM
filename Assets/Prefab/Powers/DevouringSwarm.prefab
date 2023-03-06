@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 453139462}
   m_Layer: 10
   m_Name: ParticlesDevouringSwarm
-  m_TagString: Untagged
+  m_TagString: Power
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4827,7 +4827,7 @@ GameObject:
   - component: {fileID: -3423323908261983792}
   m_Layer: 10
   m_Name: DevouringSwarm
-  m_TagString: Untagged
+  m_TagString: Power
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4923,7 +4923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e649da48a828d1418e1886e68699021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  damage: 1
   cooldown: 5
   timerKill: 3
   range: 10

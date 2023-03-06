@@ -1,37 +1,41 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DevouringSwarm : Power
 {
-    private List<GameObject> objectives;
-    void Awake()
-    {
+    public static event Action<float> OnDevouringSwarm;
 
-    }
     void Update()
     {
         Destroy(gameObject, timerKill);
     }
-    private void OnColissionStay(Collider other)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<HealthController>(out var healthController))
-        {
-            healthController.TakeDamage(damage);
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
+        Debug.Log(other);
         if (other.tag == "Enemy")
         {
-            var enemy = other.GetComponent<HealthController>();
-            other.GetComponent<HealthController>().TakeDamage(damage * Time.deltaTime);
-            other.GetComponent<EnemyController>().Stun(0.1f);
+            other.GetComponent<EnemyHealthController>().SubscribeOnDevouringSwarm();
+            //var enemy = other.GetComponent<EnemyHealthController>();
+            //other.GetComponent<EnemyHealthController>().TakeDamage(damage * Time.deltaTime);
+            other.GetComponent<EnemyController>().Stun(timerKill);
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        OnDevouringSwarm?.Invoke(damage * Time.deltaTime);
     }
 
     new public bool coorectTag(string tag)
     {
         return tag == "Ground";
+    }
+
+    public void Upgrade()
+    {
+        damage *= 1.2f;
     }
 }

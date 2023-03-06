@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class OptionsMenu : MonoBehaviour
 {
     public Toggle vsync;
     public Toggle fullScreen;
 
+    public UnityEvent OnExit;
     void Start()
     {
         fullScreen.isOn = Screen.fullScreen;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,13 +14,13 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private KeyCode nextPower;
     [SerializeField] private List<Power> powersLs;
     [SerializeField] Transform origin;
+    [SerializeField] PauseMenu pauseMenu;
     private Dictionary<int, Power> powers;
     private int index;
     private int maxIndex;
     private float timer;
     private Power power;
     private float holdTimer;
-
 
     void Awake() 
     { 
@@ -33,16 +34,19 @@ public class ActionsManager : MonoBehaviour
         index = 0;
         maxIndex = powersLs.Count-1;
         power = powers[0];
-
     }
 
     void Update() 
     {
+
+        if (Input.GetKeyDown(KeyCode.KeypadEnter)) 
+        { 
+            HUD.Instance.Pause();
+        }
         if (Time.time > holdTimer)
         {
             handsAnimator.SetBool("Power", false);
             handsAnimator.SetBool("Attack", false);
-
         }
 
         if (Input.GetKeyDown(attackKey))
@@ -57,7 +61,7 @@ public class ActionsManager : MonoBehaviour
             {
                 if (hitInfo.collider.tag == "Enemy")
                 {
-                    var enemy = hitInfo.collider.GetComponent<HealthController>();
+                    var enemy = hitInfo.collider.GetComponent<EnemyHealthController>();
                     enemy.TakeDamage(5);
                 }
             }
