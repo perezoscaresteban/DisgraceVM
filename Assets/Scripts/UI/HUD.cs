@@ -17,7 +17,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private Image coin;
     [SerializeField] private TMP_Text coins;
 
-    public static event Action OnPause;
+    public PauseMenu pauseMenu;
 
 
     private void Awake()
@@ -59,13 +59,10 @@ public class HUD : MonoBehaviour
         coins.text = n.ToString();
     }
 
-    public void Pause() 
+    public void Pause()
     {
-        OnPause?.Invoke();
-    }
-
-    public Action PRUEBA()
-    {
-        return OnPause;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseMenu.Pause();
     }
 }

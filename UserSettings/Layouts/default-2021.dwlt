@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1366
     height: 685
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 99
+  controlID: 104
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 148
+  controlID: 33
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -537,9 +537,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: 321, y: 138.5, z: 0}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0}
+    m_Value: {x: 321, y: 138.5, z: 0}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -586,9 +586,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.1426944, y: 0.22392789, z: 0.033087477, w: 0.96360195}
+    m_Target: {x: -0.03147753, y: -0.031210808, z: 0.0011331086, w: -0.9990905}
     speed: 2
-    m_Value: {x: -0.14268522, y: 0.22391348, z: 0.033085346, w: 0.9635399}
+    m_Value: {x: -0.0314752, y: -0.031208498, z: 0.0011330248, w: -0.9990165}
   m_Size:
     m_Target: 10
     speed: 2
@@ -860,9 +860,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: a2bdfdff
-      m_LastClickedID: -148062
-      m_ExpandedIDs: a2bdfdffc6bdfdff28d2fdffdceafdff08eefdff42f1fdffd4f6fdff5a4cfeff0051feff6869feffa6b6feff3044ffff28c0ffff2ec0fffffcccffff14cdffff04d3ffff16fbffffac710000469b0000ea9b0000329c00007e9c0000ea9e00008e9f0000d69f000000a50000
+      m_SelectedIDs: 6e1e0000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 6449ffff6e49ffffe44bfffff24cffffb64fffffb654ffffc679ffff487dfffff27fffff808cffff9e8effff2292ffff4093ffff4a98ffff92f7ffff08faffff16fbfffff4ffffffba750000f077000044790000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -928,22 +928,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefab
+    - Assets/Scripts/UI
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Prefab
+  - Assets/Scripts/UI
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\perez\Documents\Unity Projects\DisgraceVM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b6700000
-    m_LastClickedID: 28854
-    m_ExpandedIDs: 0000000066700000687000006a700000b6700000
+    m_SelectedIDs: 94710000
+    m_LastClickedID: 29076
+    m_ExpandedIDs: 00000000da700000dc700000de70000022710000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -971,7 +971,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000066700000687000006a700000
+    m_ExpandedIDs: 00000000da700000dc700000de700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1063,7 +1063,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 472
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:

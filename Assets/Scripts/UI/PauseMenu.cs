@@ -2,59 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     public UnityEvent OnUpgradeHabilities;
 
-    public static PauseMenu Instance;
-    public bool dontDestroyOnLoad;
-
-    public static bool GameIsPaused = false;
-    public GameObject pauseMenuUI;
+    public bool gameIsPaused = false;
 
     void Start()
     {
-        HUD.OnPause += Pause;
+
     }
 
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
 
-            if (dontDestroyOnLoad)
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
     }
 
-    public void UpgradeHabilities()
+    public void UpgradePowers()
     {
         //TODO OnUpgradeHabilities?.Invoke();
     }
 
-    void Pause() 
+    public void Pause() 
     {
-        Debug.Log(GameIsPaused);
-        if (GameIsPaused)
+        if (gameIsPaused)
         {
-            pauseMenuUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            gameObject.SetActive(false);
             Time.timeScale = 1f;
-            GameIsPaused = false;
+            gameIsPaused = false;
         }
         else 
         {
-            pauseMenuUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            gameObject.SetActive(true);
             Time.timeScale = 0f;
-            GameIsPaused = true;
+            gameIsPaused = true;
         }
+    }
+
+    public void Quit()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
