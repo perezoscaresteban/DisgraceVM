@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public UnityEvent OnUpgradeHabilities;
+    public UnityEvent OnUpgradePowers;
 
     public bool gameIsPaused = false;
 
