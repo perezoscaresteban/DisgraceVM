@@ -9,9 +9,8 @@ public class Blink : Power
     void Awake()
     {
         var player = GameObject.Find("Player");
-
         player.transform.position = gameObject.transform.position + (new Vector3(0,1.2f,0));
-
+        
     }
 
     void Update()

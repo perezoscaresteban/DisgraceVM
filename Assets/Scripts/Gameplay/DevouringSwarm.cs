@@ -38,4 +38,6 @@ public class DevouringSwarm : Power
     {
         damage *= 1.2f;
     }
+
+
 }
