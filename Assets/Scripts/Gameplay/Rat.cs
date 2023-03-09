@@ -19,7 +19,6 @@ public class Rat : MonoBehaviour
 
         if (!isReturning && timer > 1f)
         {
-            Debug.Log("Giro");
             transform.rotation *= Quaternion.Euler(0, 180, 0);
             isReturning = true;
         }
