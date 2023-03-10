@@ -31,12 +31,10 @@ public class OptionsMenu : MonoBehaviour
         if (vsync.isOn)
         {
             QualitySettings.vSyncCount = 1;
-            Debug.Log(vsync);
         }
         else
         {
             QualitySettings.vSyncCount = 0;
-            Debug.Log(vsync);
         }
     }
 }

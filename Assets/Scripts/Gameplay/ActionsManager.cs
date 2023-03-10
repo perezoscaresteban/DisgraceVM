@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -15,6 +16,7 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private List<Power> powersLs;
     [SerializeField] Transform origin;
     [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] Collider weaponCollider;
     private Dictionary<int, Power> powers;
     private int index;
     private int maxIndex;
@@ -52,9 +54,10 @@ public class ActionsManager : MonoBehaviour
         if (Input.GetKeyDown(attackKey))
         {
             handsAnimator.SetBool("Attack", true);
-
+            /*
             Ray ray = new Ray(origin.transform.position, origin.transform.forward * 2);
             RaycastHit hitInfo;
+            weaponCollider.enabled = true;
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow);
 
             if (Physics.Raycast(ray, out hitInfo, 2))
@@ -64,8 +67,10 @@ public class ActionsManager : MonoBehaviour
                     var enemy = hitInfo.collider.GetComponent<EnemyHealthController>();
                     enemy.TakeDamage(5);
                 }
-            }
+            }*/
             holdTimer = Time.time + 1;
+            //handsAnimator.SetBool("Attack", false);
+
         }
 
         if (Input.GetKeyDown(nextPower)) 

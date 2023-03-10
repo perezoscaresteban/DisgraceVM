@@ -43,6 +43,7 @@ public class EnemyController : MonoBehaviour
     public Animator enemyAnimator;
     public GameObject player;
     public PlayerHealthController playerHealthController;
+    private float timerA;
 
     private void Awake()
     {
@@ -64,6 +65,7 @@ public class EnemyController : MonoBehaviour
         enemyAnimator.SetFloat("Speed", speed);
         enemyAnimator.SetBool("Attack", AbleToAttack());
         SetCurrentState();
+        Debug.Log(currentState);
 
    }
 
@@ -173,6 +175,7 @@ public class EnemyController : MonoBehaviour
         timerStunned -= Time.deltaTime;
         if (timerStunned <= 0) 
         {
+
             enemyAnimator.SetBool("Stunned", false);
             currentState = EnemyState.Pursuit;
         }
@@ -188,8 +191,7 @@ public class EnemyController : MonoBehaviour
             speed = enemyData.pursuitSpeed;
             currentState = EnemyState.Pursuit;
         }
-        playerHealthController.TakeDamage(enemyData.damage * Time.deltaTime);
-
+        //playerHealthController.TakeDamage(enemyData.damage * Time.deltaTime);
     }
 
     private void ExecuteDied() 
@@ -205,6 +207,7 @@ public class EnemyController : MonoBehaviour
     {
         currentState = EnemyState.Stunned;
         enemyAnimator.SetBool("Stunned", true);
+
         timerStunned = amount;
     }
 

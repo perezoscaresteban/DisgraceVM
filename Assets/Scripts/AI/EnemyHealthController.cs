@@ -7,7 +7,7 @@ public class EnemyHealthController : MonoBehaviour
 {
     [SerializeField] protected float maxHealth;
     [SerializeField] public float health;
-    //[SerializeField] Animator animator;
+    [SerializeField] Animator animator;
     //Sound
     private EnemyController enemyController;
     [SerializeField] protected EnemyData enemyData;
@@ -37,6 +37,7 @@ public class EnemyHealthController : MonoBehaviour
         else
         {
             health -= damage;
+            enemyController.enemyAnimator.SetBool("Hitted", true);
         }
 
     }

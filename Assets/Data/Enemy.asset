@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Bits: 8
   lineVision: 7
   rotationSpeed: 5
-  rangeMeleeAttack: 2
+  rangeMeleeAttack: 1.5
   walkSpeed: 2
   damage: 2
   pursuitDistance: 10

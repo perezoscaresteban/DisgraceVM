@@ -24,8 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Crouching")]
     [SerializeField] private float crouchSpeed = 1.5f;
-    [SerializeField] private float crouchYScale = 0.5f;
-    private float startYScale;  
 
     [Header("Keybinds")]
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
@@ -53,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     RaycastHit slopeHit;
 
     public MovementState movementState;
+
+    private CapsuleCollider capCollider;
 
     public enum MovementState
     {
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        startYScale = transform.localScale.y;
+        capCollider = gameObject.GetComponent<CapsuleCollider>();
     }
 
     private void Update()
@@ -197,12 +197,12 @@ public class PlayerMovement : MonoBehaviour
         // start crouch
         if (Input.GetKeyDown(crouchKey))
         {
-            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            capCollider.height = 1;
             rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
         }
         else if (Input.GetKeyUp(crouchKey))
-        { 
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        {
+            capCollider.height = 3f;
         }
     }
 }

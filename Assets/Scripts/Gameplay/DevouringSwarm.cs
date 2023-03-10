@@ -7,7 +7,7 @@ public class DevouringSwarm : Power
 {
     public static event Action<float> OnDevouringSwarm;
 
-    void Update()
+    void Start()
     {
         Destroy(gameObject, timerKill);
     }
@@ -15,11 +15,9 @@ public class DevouringSwarm : Power
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
-        if (other.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyHealthController>().SubscribeOnDevouringSwarm();
-            //var enemy = other.GetComponent<EnemyHealthController>();
-            //other.GetComponent<EnemyHealthController>().TakeDamage(damage * Time.deltaTime);
             other.GetComponent<EnemyController>().Stun(timerKill);
         }
     }
